@@ -1,0 +1,41 @@
+name: Request
+description: Ask for a recipe, a takeout place or a delivery service to be added, or report something wrong.
+title: "[Request] "
+labels: ["request"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of request is this?
+      options:
+        - Add a recipe
+        - Add a takeout place
+        - Add a delivery service
+        - Fix or update an existing entry
+        - Idea for the site
+    validations:
+      required: true
+  - type: input
+    id: subject
+    attributes:
+      label: Name
+      description: The dish, place or service this is about.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Anything that helps, such as an address, a website, or what needs fixing.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Optional. A page we can check the details against.
+  - type: input
+    id: page
+    attributes:
+      label: In2Eat page
+      description: Filled in automatically when you came from a page on the site.

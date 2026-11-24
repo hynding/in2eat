@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, listEntries, slugParams } from "@/domains/content/repository";
 import { MapView } from "@/domains/location/components/MapView";
 import { DistanceFrom } from "@/domains/location/components/DistanceFrom";
@@ -21,11 +22,14 @@ export default async function TakeoutPlacePage({ params }: Props) {
   const deliveredBy = listEntries("delivery").filter((d) => place.deliveredBy.includes(d.slug));
   const marker = { point: place.location, label: place.title };
   return (
-    <TakeoutDetail
-      place={place}
-      deliveredBy={deliveredBy}
-      map={<MapView markers={[marker]} label={`Map showing ${place.title}`} />}
-      distance={<DistanceFrom point={place.location} />}
-    />
+    <>
+      <TakeoutDetail
+        place={place}
+        deliveredBy={deliveredBy}
+        map={<MapView markers={[marker]} label={`Map showing ${place.title}`} />}
+        distance={<DistanceFrom point={place.location} />}
+      />
+      <SuggestEdit path={`content/takeout/${place.slug}.yaml`} title={place.title} />
+    </>
   );
 }

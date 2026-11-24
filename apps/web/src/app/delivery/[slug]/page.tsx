@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, listEntries, slugParams } from "@/domains/content/repository";
 import { CoverageCheck } from "@/domains/location/components/CoverageCheck";
 import { MapView } from "@/domains/location/components/MapView";
@@ -20,11 +21,14 @@ export default async function DeliveryServicePage({ params }: Props) {
   if (!service) notFound();
   const places = listEntries("takeout").filter((p) => p.deliveredBy.includes(service.slug));
   return (
-    <DeliveryDetail
-      service={service}
-      places={places}
-      coverageCheck={<CoverageCheck coverage={service.coverage} />}
-      map={<MapView areas={service.coverage} label={`Coverage map for ${service.title}`} />}
-    />
+    <>
+      <DeliveryDetail
+        service={service}
+        places={places}
+        coverageCheck={<CoverageCheck coverage={service.coverage} />}
+        map={<MapView areas={service.coverage} label={`Coverage map for ${service.title}`} />}
+      />
+      <SuggestEdit path={`content/delivery/${service.slug}.yaml`} title={service.title} />
+    </>
   );
 }
