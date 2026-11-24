@@ -13,9 +13,11 @@ interface TakeoutDetailProps {
   readonly deliveredBy: readonly Entry<"delivery">[];
   /** Slot for the map, which the location domain provides. */
   readonly map?: React.ReactNode;
+  /** Slot for "x km from you", which the location domain provides. */
+  readonly distance?: React.ReactNode;
 }
 
-export function TakeoutDetail({ place, deliveredBy, map }: TakeoutDetailProps) {
+export function TakeoutDetail({ place, deliveredBy, map, distance }: TakeoutDetailProps) {
   const { address } = place;
   const addressLine = [address.street, address.city, address.region, address.postalCode].filter(Boolean).join(", ");
 
@@ -36,6 +38,7 @@ export function TakeoutDetail({ place, deliveredBy, map }: TakeoutDetailProps) {
           <section>
             <h2>Find us</h2>
             <address>{addressLine}</address>
+            {distance}
             {place.phone && <p><a href={`tel:${place.phone.replace(/\s/g, "")}`}>{place.phone}</a></p>}
             {place.website && <p><a href={place.website}>Website</a></p>}
           </section>
