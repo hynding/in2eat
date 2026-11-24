@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FavoriteButton } from "@/domains/settings/components/FavoriteButton";
 import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, slugParams } from "@/domains/content/repository";
 import { RecipeDetail } from "@/domains/recipes/components/RecipeDetail";
@@ -19,7 +20,7 @@ export default async function RecipePage({ params }: Props) {
   if (!recipe) notFound();
   return (
     <>
-      <RecipeDetail recipe={recipe} />
+      <RecipeDetail recipe={recipe} actions={<FavoriteButton id={`recipes/${recipe.slug}`} title={recipe.title} />} />
       <SuggestEdit path={`content/recipes/${recipe.slug}.yaml`} title={recipe.title} />
     </>
   );

@@ -13,12 +13,14 @@ interface DeliveryDetailProps {
   readonly places: readonly Entry<"takeout">[];
   readonly map?: React.ReactNode;
   readonly coverageCheck?: React.ReactNode;
+  readonly actions?: React.ReactNode;
 }
 
-export function DeliveryDetail({ service, places, map, coverageCheck }: DeliveryDetailProps) {
+export function DeliveryDetail({ service, places, map, coverageCheck, actions }: DeliveryDetailProps) {
   return (
     <article>
       <PageHeader eyebrow="Delivery service" title={service.title} lead={service.summary}>
+        {actions}
         <ChipList>{service.kinds.map((k) => <Chip key={k} tone="delivery">{humanize(k)}</Chip>)}</ChipList>
       </PageHeader>
 

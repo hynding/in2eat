@@ -6,7 +6,13 @@ import { formatMinutes, totalMinutes } from "../lib/time";
 import { Ingredients } from "./Ingredients";
 import styles from "./RecipeDetail.module.css";
 
-export function RecipeDetail({ recipe }: { readonly recipe: Entry<"recipes"> }) {
+interface RecipeDetailProps {
+  readonly recipe: Entry<"recipes">;
+  /** Slot for page-level actions such as saving to favourites. */
+  readonly actions?: React.ReactNode;
+}
+
+export function RecipeDetail({ recipe, actions }: RecipeDetailProps) {
   const facts = [
     ["Prep", formatMinutes(recipe.time.prep)],
     ["Cook", formatMinutes(recipe.time.cook)],
@@ -17,6 +23,7 @@ export function RecipeDetail({ recipe }: { readonly recipe: Entry<"recipes"> }) 
   return (
     <article>
       <PageHeader eyebrow={humanize(recipe.course)} title={recipe.title} lead={recipe.summary}>
+        {actions}
         <ChipList>
           {recipe.cuisine && <Chip>{humanize(recipe.cuisine)}</Chip>}
           {recipe.diet.map((d) => <Chip key={d} tone="recipe">{humanize(d)}</Chip>)}

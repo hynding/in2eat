@@ -1,5 +1,6 @@
 .picker {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-sm);
   margin-block-end: var(--space-lg);
   padding: var(--space-md);
@@ -10,7 +11,9 @@
 
 .current { display: flex; flex-wrap: wrap; gap: var(--space-xs); align-items: baseline; }
 .controls { display: flex; flex-wrap: wrap; gap: var(--space-xs); align-items: center; }
-.addressForm { display: flex; flex: 1 1 18rem; gap: var(--space-xs); }
+.addressForm { display: flex; flex: 1 1 min(18rem, 100%); min-inline-size: 0; gap: var(--space-xs); }
+
+.picker[data-embedded="true"] { margin: 0; padding: 0; border: 0; background: none; }
 
 .input {
   flex: 1;

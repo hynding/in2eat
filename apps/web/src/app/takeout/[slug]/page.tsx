@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FavoriteButton } from "@/domains/settings/components/FavoriteButton";
 import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, listEntries, slugParams } from "@/domains/content/repository";
 import { MapView } from "@/domains/location/components/MapView";
@@ -24,6 +25,7 @@ export default async function TakeoutPlacePage({ params }: Props) {
   return (
     <>
       <TakeoutDetail
+        actions={<FavoriteButton id={`takeout/${place.slug}`} title={place.title} />}
         place={place}
         deliveredBy={deliveredBy}
         map={<MapView markers={[marker]} label={`Map showing ${place.title}`} />}
