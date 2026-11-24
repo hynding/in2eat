@@ -10,13 +10,15 @@ const navigation = [
   { href: "/settings/", label: "Settings" },
 ] as const;
 
-export function SiteHeader() {
+/** `search` is a slot so this shared component stays free of domain imports. */
+export function SiteHeader({ search }: { readonly search?: React.ReactNode }) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link href="/" className={styles.brand}>
           In2Eat
         </Link>
+        {search}
         <nav aria-label="Main">
           <ul className={styles.nav}>
             {navigation.map((item) => (
