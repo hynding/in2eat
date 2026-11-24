@@ -18,8 +18,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Project pages live under /<repo>. Set the BASE_PATH variable to "" when using a custom domain.
-      NEXT_PUBLIC_BASE_PATH: ${{ vars.BASE_PATH != null && vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
       NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
       NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
     steps:
@@ -30,6 +28,12 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Project pages are served under /<repo>. With a custom domain, set the
+      # repository variable CUSTOM_DOMAIN to any value to serve from the root.
+      - name: Choose base path
+        run: |
+          if [ -n "${{ vars.CUSTOM_DOMAIN }}" ]; then base=""; else base="/${{ github.event.repository.name }}"; fi
+          echo "NEXT_PUBLIC_BASE_PATH=$base" >> "$GITHUB_ENV"
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v3
         with:

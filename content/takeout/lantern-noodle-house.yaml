@@ -9,6 +9,7 @@ services: [pickup, dine-in, delivery]
 hours:
   - { days: [tue, wed, thu, sun], open: "11:30", close: "21:30" }
   - { days: [fri, sat], open: "11:30", close: "23:00" }
+timeZone: America/Los_Angeles
 currency: USD
 deliveredBy: [bike-basket-couriers]
 menu:

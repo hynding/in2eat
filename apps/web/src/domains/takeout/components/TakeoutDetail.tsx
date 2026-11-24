@@ -27,7 +27,7 @@ export function TakeoutDetail({ place, deliveredBy, map, distance, actions }: Ta
       <PageHeader eyebrow={place.cuisine.map(humanize).join(" · ")} title={place.title} lead={place.summary}>
         {actions}
         <ChipList>
-          <OpenNow hours={place.hours} />
+          <OpenNow hours={place.hours} timeZone={place.timeZone} />
           {place.services.map((s) => <Chip key={s} tone="takeout">{humanize(s)}</Chip>)}
         </ChipList>
       </PageHeader>
@@ -48,6 +48,7 @@ export function TakeoutDetail({ place, deliveredBy, map, distance, actions }: Ta
           {place.hours.length > 0 && (
             <section>
               <h2>Hours</h2>
+              <p className={styles.zone}>Local time ({place.timeZone.replace(/_/g, " ")})</p>
               <table className={styles.hours}>
                 <tbody>
                   {hoursByDay(place.hours).map(([day, periods]) => (

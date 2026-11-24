@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { GoogleDriveSettingsStore } from "../lib/google-drive-store";
+import { GoogleDriveSettingsStore, type TokenSource } from "../lib/google-drive-store";
 import { isGoogleConfigured, requestDriveToken, revokeToken, type AccessToken } from "../lib/google-identity";
-import { newest } from "../lib/settings";
+import { newest, type Settings } from "../lib/settings";
 import { useSettings } from "./SettingsProvider";
 
 type SyncStatus = "unavailable" | "signed-out" | "connecting" | "synced" | "saving" | "error";
@@ -17,7 +17,27 @@ interface AccountSyncValue {
 
 const CONNECTED_FLAG = "in2eat:google-connected";
 const SAVE_DELAY_MS = 1500;
+/** Renew a little before Google's expiry so a save never races it. */
+const EXPIRY_MARGIN_MS = 60_000;
 const AccountSyncContext = createContext<AccountSyncValue | null>(null);
+
+const storage = {
+  get: (key: string) => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  set: (key: string, value: string | null) => {
+    try {
+      if (value === null) localStorage.removeItem(key);
+      else localStorage.setItem(key, value);
+    } catch {
+      // Blocked storage only means we can't reconnect automatically next visit.
+    }
+  },
+};
 
 /**
  * Keeps settings in step with Google Drive while signed in: on connect, the
@@ -30,6 +50,22 @@ export function AccountSyncProvider({ children }: { readonly children: React.Rea
   const store = useRef<GoogleDriveSettingsStore | null>(null);
   const token = useRef<AccessToken | null>(null);
   const lastSynced = useRef<string | null>(null);
+  const latest = useRef<Settings>(settings);
+  latest.current = settings;
+
+  const tokens = useMemo<TokenSource>(
+    () => ({
+      async current() {
+        if (token.current && token.current.expiresAt - EXPIRY_MARGIN_MS > Date.now()) return token.current;
+        return this.renew();
+      },
+      async renew() {
+        token.current = await requestDriveToken(false);
+        return token.current;
+      },
+    }),
+    [],
+  );
 
   const start = useCallback(
     async (interactive: boolean) => {
@@ -37,13 +73,16 @@ export function AccountSyncProvider({ children }: { readonly children: React.Rea
       setError(undefined);
       try {
         token.current = await requestDriveToken(interactive);
-        store.current = new GoogleDriveSettingsStore(token.current);
-        const remote = await store.current.load();
-        const winner = remote ? newest(settings, remote) : settings;
-        if (winner !== settings) replace(winner);
-        if (winner !== remote) await store.current.save(winner);
+        const drive = new GoogleDriveSettingsStore(tokens);
+        const local = latest.current;
+        const remote = await drive.load();
+        const winner = remote ? newest(local, remote) : local;
+        if (winner !== remote) await drive.save(winner);
+        // Mark as synced before applying, so the change doesn't trigger a redundant save.
         lastSynced.current = winner.updatedAt;
-        localStorage.setItem(CONNECTED_FLAG, "1");
+        if (winner !== local) replace(winner);
+        store.current = drive;
+        storage.set(CONNECTED_FLAG, "1");
         setStatus("synced");
       } catch (e) {
         store.current = null;
@@ -51,13 +90,13 @@ export function AccountSyncProvider({ children }: { readonly children: React.Rea
         setStatus(interactive ? "error" : "signed-out");
       }
     },
-    [settings, replace],
+    [replace, tokens],
   );
 
   // Reconnect quietly on later visits if the visitor connected before.
   useEffect(() => {
-    if (loaded && isGoogleConfigured && localStorage.getItem(CONNECTED_FLAG)) void start(false);
-  }, [loaded]); // once, after local settings load
+    if (loaded && isGoogleConfigured && storage.get(CONNECTED_FLAG)) void start(false);
+  }, [loaded, start]);
 
   useEffect(() => {
     if (!store.current || settings.updatedAt === lastSynced.current) return;
@@ -80,7 +119,7 @@ export function AccountSyncProvider({ children }: { readonly children: React.Rea
     if (token.current) await revokeToken(token.current).catch(() => undefined);
     token.current = null;
     store.current = null;
-    localStorage.removeItem(CONNECTED_FLAG);
+    storage.set(CONNECTED_FLAG, null);
     setStatus("signed-out");
   }, []);
 

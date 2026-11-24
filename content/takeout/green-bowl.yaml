@@ -8,6 +8,7 @@ website: https://example.com/green-bowl
 services: [pickup, delivery]
 hours:
   - { days: [mon, tue, wed, thu, fri], open: "10:30", close: "15:00" }
+timeZone: America/Los_Angeles
 currency: USD
 deliveredBy: [bike-basket-couriers, green-crate-grocer]
 menu:

@@ -1,4 +1,10 @@
 import type { AccessToken } from "./google-identity";
+
+/** Supplies access tokens. Google tokens last about an hour, so the store asks again when one is rejected. */
+export interface TokenSource {
+  current(): Promise<AccessToken>;
+  renew(): Promise<AccessToken>;
+}
 import { parseSettings, type Settings } from "./settings";
 import type { SettingsStore } from "./store";
 
@@ -20,7 +26,7 @@ export class GoogleDriveSettingsStore implements SettingsStore {
   readonly id = "google-drive";
   private fileId: string | undefined;
 
-  constructor(private readonly token: AccessToken) {}
+  constructor(private readonly tokens: TokenSource) {}
 
   async load(): Promise<Settings | null> {
     const id = await this.findFile();
@@ -53,7 +59,11 @@ export class GoogleDriveSettingsStore implements SettingsStore {
   }
 
   private async request(url: string, init: RequestInit = {}): Promise<Response> {
-    const response = await fetch(url, { ...init, headers: { ...init.headers, Authorization: `Bearer ${this.token.value}` } });
+    const send = (token: AccessToken) =>
+      fetch(url, { ...init, headers: { ...init.headers, Authorization: `Bearer ${token.value}` } });
+
+    let response = await send(await this.tokens.current());
+    if (response.status === 401) response = await send(await this.tokens.renew());
     if (!response.ok) throw new DriveRequestError(response.status);
     return response;
   }

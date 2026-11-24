@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Address, Currency, EntryMeta, GeoPoint, OpeningHours, Url } from "./common.js";
+import { Address, Currency, EntryMeta, GeoPoint, OpeningHours, TimeZone, Url } from "./common.js";
 
 export const TakeoutService = z.enum(["pickup", "dine-in", "delivery", "drive-thru"]);
 
@@ -26,6 +26,7 @@ export const TakeoutSchema = z.object({
   website: Url.optional(),
   services: z.array(TakeoutService).min(1),
   hours: z.array(OpeningHours).default([]),
+  timeZone: TimeZone.describe("IANA zone the opening hours are in"),
   currency: Currency,
   menu: z.array(MenuSection).min(1),
   deliveredBy: z.array(z.string()).default([]).describe("Slugs of delivery services that carry this place"),

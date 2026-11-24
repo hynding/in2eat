@@ -38,6 +38,17 @@ export const OpeningHours = z.object({
 });
 export type OpeningHours = z.infer<typeof OpeningHours>;
 
+const isTimeZone = (zone: string): boolean => {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone: zone });
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const TimeZone = z.string().refine(isTimeZone, "use an IANA time zone such as America/Los_Angeles");
+
 export const Currency = z.string().length(3).toUpperCase().describe("ISO 4217");
 
 /** Fields every content entry shares, regardless of collection. */

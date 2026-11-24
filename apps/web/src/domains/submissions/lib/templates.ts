@@ -35,6 +35,7 @@ website: https://example.com                 # optional
 services: [pickup]                           # pickup, dine-in, delivery, drive-thru
 hours:
   - { days: [mon, tue, wed, thu, fri], open: "11:00", close: "21:00" }
+timeZone: America/Los_Angeles                # the zone the hours above are in
 currency: USD
 deliveredBy: []                              # slugs of delivery services on In2Eat
 menu:

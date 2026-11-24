@@ -13,12 +13,12 @@ export function Menu({ sections, currency }: MenuProps) {
   return (
     <section aria-labelledby="menu-heading" className={styles.menu}>
       <h2 id="menu-heading">Menu</h2>
-      {sections.map((section) => (
-        <div key={section.section} className={styles.menuSection}>
+      {sections.map((section, sectionIndex) => (
+        <div key={sectionIndex} className={styles.menuSection}>
           <h3>{section.section}</h3>
           <ul>
-            {section.items.map((item) => (
-              <li key={item.name} className={styles.menuItem}>
+            {section.items.map((item, index) => (
+              <li key={index} className={styles.menuItem}>
                 <div>
                   <p className={styles.itemName}>{item.name}</p>
                   {item.description && <p className={styles.itemDescription}>{item.description}</p>}

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: { default: "In2Eat", template: "%s · In2Eat" },
   description: "Recipes to cook, takeout menus nearby, and delivery services that reach you.",
   applicationName: "In2Eat",
-  icons: { icon: withBasePath("/icons/icon.svg"), apple: withBasePath("/icons/icon.svg") },
+  icons: { icon: withBasePath("/icons/icon.svg"), apple: withBasePath("/icons/apple-touch-icon.png") },
   appleWebApp: { capable: true, title: "In2Eat", statusBarStyle: "default" },
 };
 

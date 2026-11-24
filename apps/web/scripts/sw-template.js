@@ -3,8 +3,8 @@ const VERSION = "__VERSION__";
 const BASE_PATH = "__BASE_PATH__";
 const PRECACHE = __PRECACHE__;
 
+/** One cache per build: pages, the search index and hashed assets all expire together. */
 const PAGES = `in2eat-pages-${VERSION}`;
-const STATIC = "in2eat-static";
 const TILES = "in2eat-tiles";
 const MAX_TILES = 400;
 
@@ -16,7 +16,8 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k.startsWith("in2eat-pages-") && k !== PAGES).map((k) => caches.delete(k))))
+      // Only touch our own caches: GitHub Pages project sites share one origin.
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith("in2eat-") && k !== PAGES && k !== TILES).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -32,12 +33,12 @@ async function networkFirst(request) {
   }
 }
 
-async function cacheFirst(request, cacheName) {
-  const cache = await caches.open(cacheName);
-  const cached = await cache.match(request);
+/** Hashed assets never change, so any cached copy (usually the precached one) is good. */
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
   if (cached) return cached;
   const response = await fetch(request);
-  if (response.ok) cache.put(request, response.clone());
+  if (response.ok) (await caches.open(PAGES)).put(request, response.clone());
   return response;
 }
 
@@ -53,7 +54,7 @@ async function staleWhileRevalidate(request) {
       }
       return response;
     })
-    .catch(() => cached);
+    .catch(() => cached ?? Response.error());
   return cached ?? refresh;
 }
 
@@ -64,6 +65,6 @@ self.addEventListener("fetch", (event) => {
 
   if (url.hostname.endsWith("tile.openstreetmap.org")) return event.respondWith(staleWhileRevalidate(request));
   if (url.origin !== self.location.origin) return;
-  if (url.pathname.startsWith(`${BASE_PATH}/_next/static/`)) return event.respondWith(cacheFirst(request, STATIC));
+  if (url.pathname.startsWith(`${BASE_PATH}/_next/static/`)) return event.respondWith(cacheFirst(request));
   event.respondWith(networkFirst(request));
 });

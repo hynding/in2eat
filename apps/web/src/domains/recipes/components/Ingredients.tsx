@@ -27,11 +27,11 @@ export function Ingredients({ groups, servings: baseServings }: IngredientsProps
         </div>
       </div>
       {groups.map((group, i) => (
-        <div key={group.group ?? i}>
+        <div key={i}>
           {group.group && <h3>{group.group}</h3>}
           <ul className={styles.ingredientList}>
-            {group.items.map((item) => (
-              <li key={item.name}>
+            {group.items.map((item, index) => (
+              <li key={index}>
                 <span className={styles.amount}>{[amount(item.quantity), item.unit].filter(Boolean).join(" ")}</span>
                 <span>
                   {item.name}
