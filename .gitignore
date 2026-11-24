@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.next/
+out/
+*.tsbuildinfo
+.env*.local
+apps/web/public/search-index.json
+apps/web/public/sw.js
+apps/web/src/generated/
+packages/design-tokens/css/
+coverage/

@@ -1,0 +1,17 @@
+title: Green Bowl
+summary: Grain bowls and salads built around what is in season.
+cuisine: [healthy, salads]
+tags: [vegan-options, lunch]
+address: { street: 820 SW Morrison St, city: Portland, region: OR, postalCode: "97205", country: US }
+location: { lat: 45.5189, lng: -122.6810 }
+website: https://example.com/green-bowl
+services: [pickup, delivery]
+hours:
+  - { days: [mon, tue, wed, thu, fri], open: "10:30", close: "15:00" }
+currency: USD
+deliveredBy: [bike-basket-couriers, green-crate-grocer]
+menu:
+  - section: Bowls
+    items:
+      - { name: Harvest bowl, description: "Farro, roast squash, kale, tahini.", price: 13, tags: [vegan] }
+      - { name: Miso salmon bowl, price: 16, tags: [pescatarian] }

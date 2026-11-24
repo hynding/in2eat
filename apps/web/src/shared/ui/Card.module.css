@@ -1,0 +1,73 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--layout-card-min), 100%), 1fr));
+  gap: var(--space-md);
+}
+
+.card {
+  --card-accent: var(--color-accent);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-block-start: 4px solid var(--card-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--color-shadow);
+  transition: transform var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.card[data-accent="recipe"] { --card-accent: var(--color-recipe); }
+.card[data-accent="takeout"] { --card-accent: var(--color-takeout); }
+.card[data-accent="delivery"] { --card-accent: var(--color-delivery); }
+
+.card:hover { transform: translateY(-2px); }
+.card:focus-within { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--card-accent);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-tight);
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:focus-visible { outline: none; }
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.body {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.body > p { margin: 0; }
+
+.footer {
+  margin-block-start: auto;
+  padding-block-start: var(--space-xs);
+}

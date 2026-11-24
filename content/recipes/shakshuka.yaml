@@ -1,0 +1,30 @@
+title: Weeknight Shakshuka
+summary: Eggs poached in a smoky, spiced tomato and pepper sauce. One pan, thirty minutes.
+cuisine: middle-eastern
+course: main
+diet: [vegetarian, gluten-free]
+tags: [one-pan, eggs, quick]
+servings: 4
+time: { prep: 10, cook: 20 }
+ingredients:
+  - group: Sauce
+    items:
+      - { name: olive oil, quantity: 2, unit: tbsp }
+      - { name: onion, quantity: 1, note: diced }
+      - { name: red bell pepper, quantity: 1, note: diced }
+      - { name: garlic, quantity: 3, unit: clove, note: minced }
+      - { name: smoked paprika, quantity: 2, unit: tsp }
+      - { name: ground cumin, quantity: 1, unit: tsp }
+      - { name: crushed tomatoes, quantity: 800, unit: g }
+  - group: To finish
+    items:
+      - { name: eggs, quantity: 6 }
+      - { name: feta, quantity: 60, unit: g, note: crumbled }
+      - { name: parsley, note: "chopped, to serve" }
+steps:
+  - Warm the oil in a wide pan over medium heat. Soften the onion and pepper for 6 to 8 minutes.
+  - Add the garlic, paprika and cumin and stir for 1 minute until fragrant.
+  - Pour in the tomatoes, season, and simmer for 8 minutes until slightly thickened.
+  - Make six wells in the sauce, crack an egg into each, cover and cook 5 to 7 minutes until the whites set.
+  - Scatter with feta and parsley and serve straight from the pan with bread.
+updated: 2026-11-24

@@ -1,0 +1,20 @@
+title: Taqueria Sol
+summary: Tacos al pastor off the trompo and fresh salsas daily.
+cuisine: [mexican, tacos]
+tags: [quick, budget]
+address: { street: 3400 N Williams Ave, city: Portland, region: OR, postalCode: "97227", country: US }
+location: { lat: 45.5486, lng: -122.6668 }
+services: [pickup, drive-thru, delivery]
+hours:
+  - { days: [mon, tue, wed, thu, fri, sat, sun], open: "10:00", close: "22:00" }
+currency: USD
+deliveredBy: [bike-basket-couriers]
+menu:
+  - section: Tacos
+    items:
+      - { name: Al pastor, description: "Marinated pork, pineapple, onion, cilantro.", price: 4 }
+      - { name: Hongos, description: "Roasted mushrooms and salsa verde.", price: 4, tags: [vegetarian] }
+  - section: Drinks
+    items:
+      - { name: Horchata, price: 4 }
+      - { name: Agua de jamaica, price: 4, tags: [vegan] }

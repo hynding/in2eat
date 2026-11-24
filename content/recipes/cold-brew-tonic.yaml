@@ -1,0 +1,17 @@
+title: Cold Brew Tonic
+summary: Bright, bitter and fizzy. Coffee for warm afternoons.
+course: drink
+diet: [vegan, gluten-free]
+tags: [coffee, no-cook, quick]
+servings: 1
+time: { prep: 3 }
+ingredients:
+  - items:
+      - { name: ice }
+      - { name: tonic water, quantity: 150, unit: ml }
+      - { name: cold brew concentrate, quantity: 60, unit: ml }
+      - { name: orange peel, note: to garnish }
+steps:
+  - Fill a tall glass with ice and pour in the tonic.
+  - Slowly pour the cold brew over the back of a spoon so it floats.
+  - Twist the orange peel over the glass and drop it in.

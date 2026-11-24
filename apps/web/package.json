@@ -1,0 +1,25 @@
+{
+  "name": "@in2eat/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/prebuild.mjs && next dev",
+    "build": "node scripts/prebuild.mjs && next build && node scripts/postbuild.mjs",
+    "start": "npx serve out",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@in2eat/content-schema": "workspace:*",
+    "@in2eat/design-tokens": "workspace:*",
+    "@in2eat/search-index": "workspace:*",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0"
+  }
+}
