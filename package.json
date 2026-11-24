@@ -10,8 +10,7 @@
     "dev": "pnpm -r --filter=./packages/* build && pnpm --filter @in2eat/web dev",
     "validate:content": "pnpm --filter @in2eat/content-schema build && node packages/content-schema/dist/cli.js content",
     "test": "vitest run",
-    "typecheck": "pnpm -r typecheck",
-    "lint": "pnpm -r lint"
+    "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

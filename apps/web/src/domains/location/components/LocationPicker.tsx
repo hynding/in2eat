@@ -7,7 +7,8 @@ import { useLocation } from "./useLocation";
 import styles from "./Location.module.css";
 
 /** Lets the visitor share their device location or look up an address. */
-export function LocationPicker() {
+/** `embedded` drops the frame when the picker sits inside another panel. */
+export function LocationPicker({ embedded = false }: { readonly embedded?: boolean }) {
   const { location, status, error, locateDevice, setLocation } = useLocation();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Place[]>([]);
@@ -37,7 +38,7 @@ export function LocationPicker() {
   }
 
   return (
-    <section className={styles.picker} aria-label="Your location">
+    <section className={styles.picker} data-embedded={embedded} aria-label="Your location">
       <div className={styles.current}>
         {location ? (
           <>

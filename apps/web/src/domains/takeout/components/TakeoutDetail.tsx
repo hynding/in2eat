@@ -15,15 +15,17 @@ interface TakeoutDetailProps {
   readonly map?: React.ReactNode;
   /** Slot for "x km from you", which the location domain provides. */
   readonly distance?: React.ReactNode;
+  readonly actions?: React.ReactNode;
 }
 
-export function TakeoutDetail({ place, deliveredBy, map, distance }: TakeoutDetailProps) {
+export function TakeoutDetail({ place, deliveredBy, map, distance, actions }: TakeoutDetailProps) {
   const { address } = place;
   const addressLine = [address.street, address.city, address.region, address.postalCode].filter(Boolean).join(", ");
 
   return (
     <article>
       <PageHeader eyebrow={place.cuisine.map(humanize).join(" · ")} title={place.title} lead={place.summary}>
+        {actions}
         <ChipList>
           <OpenNow hours={place.hours} />
           {place.services.map((s) => <Chip key={s} tone="takeout">{humanize(s)}</Chip>)}

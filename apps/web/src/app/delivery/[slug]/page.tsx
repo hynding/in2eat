@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FavoriteButton } from "@/domains/settings/components/FavoriteButton";
 import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, listEntries, slugParams } from "@/domains/content/repository";
 import { CoverageCheck } from "@/domains/location/components/CoverageCheck";
@@ -23,6 +24,7 @@ export default async function DeliveryServicePage({ params }: Props) {
   return (
     <>
       <DeliveryDetail
+        actions={<FavoriteButton id={`delivery/${service.slug}`} title={service.title} />}
         service={service}
         places={places}
         coverageCheck={<CoverageCheck coverage={service.coverage} />}
