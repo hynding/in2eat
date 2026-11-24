@@ -45,7 +45,7 @@ export function RecipeDetail({ recipe, actions }: RecipeDetailProps) {
         <section aria-labelledby="method-heading">
           <h2 id="method-heading">Method</h2>
           <ol className={styles.steps}>
-            {recipe.steps.map((step) => <li key={step}>{step}</li>)}
+            {recipe.steps.map((step, index) => <li key={index}>{step}</li>)}
           </ol>
         </section>
       </div>

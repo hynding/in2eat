@@ -6,15 +6,21 @@ import { Chip } from "@/shared/ui/Chip";
 import { isOpenAt } from "../lib/hours";
 
 /** Rendered on the client only, because "now" is unknown at build time. */
-export function OpenNow({ hours }: { readonly hours: readonly OpeningHours[] }) {
+interface OpenNowProps {
+  readonly hours: readonly OpeningHours[];
+  /** The place's IANA time zone; hours are judged by its clock. */
+  readonly timeZone: string;
+}
+
+export function OpenNow({ hours, timeZone }: OpenNowProps) {
   const [open, setOpen] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const update = () => setOpen(isOpenAt(hours, new Date()));
+    const update = () => setOpen(isOpenAt(hours, new Date(), timeZone));
     update();
     const timer = setInterval(update, 60_000);
     return () => clearInterval(timer);
-  }, [hours]);
+  }, [hours, timeZone]);
 
   if (open === null || hours.length === 0) return null;
   return <Chip tone={open ? "recipe" : "neutral"}>{open ? "Open now" : "Closed now"}</Chip>;

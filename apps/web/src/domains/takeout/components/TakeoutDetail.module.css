@@ -46,3 +46,4 @@
 .itemName { margin: 0; font-weight: var(--font-weight-bold); }
 .itemDescription { margin: 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
 .price { font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.zone { margin: 0 0 var(--space-xs); color: var(--color-text-muted); font-size: var(--font-size-xs); }

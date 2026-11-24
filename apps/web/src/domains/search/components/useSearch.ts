@@ -7,11 +7,14 @@ import { parseQueryState, serializeQueryState, type QueryState } from "../lib/qu
 
 type Status = "loading" | "ready" | "error";
 
+/** Placeholder until the URL has been read; never written back to the URL. */
+const UNREAD: QueryState = { q: "", filters: {} };
+
 /** Owns the search page state: loads the index, keeps the URL in sync, and runs queries. */
 export function useSearch() {
   const [searcher, setSearcher] = useState<Searcher>();
   const [status, setStatus] = useState<Status>("loading");
-  const [state, setState] = useState<QueryState>({ q: "", filters: {} });
+  const [state, setState] = useState<QueryState>(UNREAD);
 
   useEffect(() => {
     setState(parseQueryState(window.location.search));
@@ -24,6 +27,7 @@ export function useSearch() {
   }, []);
 
   useEffect(() => {
+    if (state === UNREAD) return;
     const url = `${window.location.pathname}${serializeQueryState(state)}`;
     window.history.replaceState(null, "", url);
   }, [state]);

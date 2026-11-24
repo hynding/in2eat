@@ -50,7 +50,7 @@ Each folder in `content/` is a **collection**, registered once in `packages/cont
 | Collection | Key fields |
 | --- | --- |
 | `recipes` | title, summary, cuisine, course, diet[], servings, time {prep, cook}, ingredients (grouped, with quantity/unit), steps[], source |
-| `takeout` | title, summary, cuisine[], address, location {lat, lng}, services[], hours[], currency, menu (sections → items with price and tags), deliveredBy[] |
+| `takeout` | title, summary, cuisine[], address, location {lat, lng}, services[], hours[], timeZone, currency, menu (sections → items with price and tags), deliveredBy[] |
 | `delivery` | title, summary, kinds[] (food, drink, grocery, alcohol, coffee), website, apps, coverage[] (center + radiusKm), fees |
 
 All entries share `title`, `summary`, `tags`, `updated` and `image`. The same schemas run in the browser to validate user submissions before they reach GitHub.
@@ -108,7 +108,7 @@ New providers implement the same interface. GitHub sign-in is not offered: its O
 ## Hosting and CI
 
 - **GitHub Actions**: `ci.yml` runs install, content validation, type checks, tests and a full static build on pull requests.
-- **Deploy**: `deploy.yml` publishes `apps/web/out` to **GitHub Pages** on pushes to `main`. `NEXT_PUBLIC_BASE_PATH` is set to `/in2eat` for the project page and can be cleared for a custom domain. Pages must be enabled once in the repo settings (Source: GitHub Actions).
+- **Deploy**: `deploy.yml` publishes `apps/web/out` to **GitHub Pages** on pushes to `main`. `NEXT_PUBLIC_BASE_PATH` is `/in2eat` for the project page; setting the `CUSTOM_DOMAIN` repository variable serves from the root instead. Pages must be enabled once in the repo settings (Source: GitHub Actions).
 
 ## Phases
 

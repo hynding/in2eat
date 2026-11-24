@@ -1,11 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { parse as parseYaml } from "yaml";
 import { collectionNames, parseEntry, type CollectionName } from "@in2eat/content-schema";
 import { Button } from "@/shared/ui/Button";
 import { MAX_URL_LENGTH, newFileUrl } from "../lib/github";
 import { collectionLabels, entryTemplates, slugify } from "../lib/templates";
 import styles from "./Submit.module.css";
+
+/** The title as written, read leniently so the file name can follow it while the YAML is still invalid. */
+function readTitle(source: string): string {
+  try {
+    const doc: unknown = parseYaml(source);
+    if (doc && typeof doc === "object" && "title" in doc && typeof doc.title === "string") return doc.title;
+  } catch {
+    // Fall through to the line match below.
+  }
+  return /^title:\s*["']?([^"'#\n]+)/m.exec(source)?.[1]?.trim() ?? "";
+}
 
 /**
  * Data entry: the visitor edits YAML starting from a template, the shared
@@ -17,7 +29,7 @@ export function EntryForm() {
   const [slugOverride, setSlugOverride] = useState("");
   const [notice, setNotice] = useState<string>();
 
-  const titleSlug = slugify(/^title:\s*(.+)$/m.exec(source)?.[1] ?? "");
+  const titleSlug = useMemo(() => slugify(readTitle(source)), [source]);
   const slug = slugOverride || titleSlug;
   const result = useMemo(() => parseEntry(collection, slug || "untitled", source), [collection, slug, source]);
   const path = `content/${collection}/${slug}.yaml`;
@@ -33,13 +45,19 @@ export function EntryForm() {
     event.preventDefault();
     if (!result.ok || !slug) return;
     const message = `Add ${collectionLabels[collection].toLowerCase()}: ${slug}`;
-    let url = newFileUrl(path, source, message);
-    if (url.length > MAX_URL_LENGTH) {
-      await navigator.clipboard.writeText(source);
-      url = newFileUrl(path, undefined, message);
-      setNotice("Your entry is too long for a link, so it's on your clipboard. Paste it into the file on GitHub.");
+    const prefilled = newFileUrl(path, source, message);
+    if (prefilled.length <= MAX_URL_LENGTH) {
+      window.open(prefilled, "_blank", "noopener");
+      return;
     }
-    window.open(url, "_blank", "noopener");
+    // Open the tab before any await, or the browser treats it as an unrequested popup.
+    window.open(newFileUrl(path, undefined, message), "_blank", "noopener");
+    try {
+      await navigator.clipboard.writeText(source);
+      setNotice("Your entry is too long for a link, so it's on your clipboard. Paste it into the new file on GitHub.");
+    } catch {
+      setNotice("Your entry is too long for a link. Copy it from the box above and paste it into the new file on GitHub.");
+    }
   }
 
   return (
