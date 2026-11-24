@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { themes } from "@in2eat/design-tokens";
+import { HeaderSearch } from "@/domains/search/components/HeaderSearch";
 import { withBasePath } from "@/shared/lib/base-path";
 import { ServiceWorkerRegistration } from "@/shared/pwa/ServiceWorkerRegistration";
 import { themeBootstrapScript } from "@/shared/pwa/theme-script";
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { readonly children: React.Reac
       </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
-        <SiteHeader />
+        <SiteHeader search={<HeaderSearch />} />
         <main id="main" className="page">{children}</main>
         <footer className="site-footer">
           <div>

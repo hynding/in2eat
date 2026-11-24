@@ -1,0 +1,77 @@
+.layout {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-areas: "bar" "filters" "results";
+}
+
+@media (min-width: 48rem) {
+  .layout {
+    grid-template-columns: 14rem 1fr;
+    grid-template-areas: "bar bar" "filters results";
+    align-items: start;
+  }
+}
+
+.searchBar { grid-area: bar; display: grid; gap: var(--space-xs); }
+.filters { grid-area: filters; display: grid; gap: var(--space-md); }
+.results { grid-area: results; min-inline-size: 0; }
+
+.input {
+  inline-size: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-lg);
+}
+
+.input:focus { border-color: var(--color-accent); outline: none; }
+
+.suggestions { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+
+.suggestions button {
+  padding: var(--space-3xs) var(--space-sm);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.suggestions button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+.facet {
+  display: grid;
+  gap: var(--space-3xs);
+  margin: 0;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.facet legend {
+  padding-inline: var(--space-2xs);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.facetOption {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.facetOption input { accent-color: var(--color-accent); }
+.count { color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.summary { margin-block: 0 var(--space-md); color: var(--color-text-muted); }
