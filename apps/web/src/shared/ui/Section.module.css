@@ -1,0 +1,24 @@
+.section {
+  display: grid;
+  gap: var(--space-md);
+  margin-block: var(--space-2xl);
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+}
+
+.more {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}

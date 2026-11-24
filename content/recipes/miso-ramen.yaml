@@ -1,0 +1,23 @@
+title: Quick Miso Ramen
+summary: A rich miso broth with noodles, greens and a jammy egg, ready faster than delivery.
+cuisine: japanese
+course: main
+diet: [pescatarian]
+tags: [noodles, soup, comfort]
+servings: 2
+time: { prep: 15, cook: 15 }
+ingredients:
+  - items:
+      - { name: dashi or vegetable stock, quantity: 1, unit: l }
+      - { name: white miso, quantity: 3, unit: tbsp }
+      - { name: soy sauce, quantity: 1, unit: tbsp }
+      - { name: sesame oil, quantity: 1, unit: tsp }
+      - { name: ramen noodles, quantity: 2, unit: portion }
+      - { name: baby bok choy, quantity: 2, note: halved }
+      - { name: eggs, quantity: 2 }
+      - { name: spring onions, quantity: 2, note: sliced }
+steps:
+  - Boil the eggs for 6.5 minutes, then cool in iced water and peel.
+  - Heat the stock until steaming. Whisk the miso with a ladle of stock, then stir it back in with the soy and sesame oil. Do not boil.
+  - Cook the noodles and blanch the bok choy in the same pot of boiling water.
+  - Divide noodles between bowls, ladle over the broth, and top with bok choy, halved eggs and spring onions.

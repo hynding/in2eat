@@ -1,0 +1,22 @@
+title: Lantern Noodle House
+summary: Hand-pulled noodles and dumplings, made to order.
+cuisine: [chinese, noodles]
+tags: [late-night, family-friendly]
+address: { street: 1200 SE Division St, city: Portland, region: OR, postalCode: "97202", country: US }
+location: { lat: 45.5048, lng: -122.6527 }
+phone: "+1 503 555 0101"
+services: [pickup, dine-in, delivery]
+hours:
+  - { days: [tue, wed, thu, sun], open: "11:30", close: "21:30" }
+  - { days: [fri, sat], open: "11:30", close: "23:00" }
+currency: USD
+deliveredBy: [bike-basket-couriers]
+menu:
+  - section: Noodles
+    items:
+      - { name: Dan dan noodles, description: "Pork, chili oil, sesame, peanuts.", price: 14, tags: [spicy] }
+      - { name: Scallion oil noodles, price: 12, tags: [vegetarian] }
+  - section: Dumplings
+    items:
+      - { name: Pork and chive dumplings, description: "Eight pieces, pan-fried.", price: 11 }
+      - { name: Mushroom dumplings, price: 11, tags: [vegan] }

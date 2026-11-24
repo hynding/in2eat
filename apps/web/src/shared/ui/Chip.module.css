@@ -1,0 +1,24 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.chip {
+  --chip-color: var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  padding-block: var(--space-3xs);
+  padding-inline: var(--space-xs);
+  border: 1px solid color-mix(in srgb, var(--chip-color) 35%, transparent);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--chip-color) 10%, transparent);
+  color: var(--chip-color);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.chip[data-tone="recipe"] { --chip-color: var(--color-recipe); }
+.chip[data-tone="takeout"] { --chip-color: var(--color-takeout); }
+.chip[data-tone="delivery"] { --chip-color: var(--color-delivery); }

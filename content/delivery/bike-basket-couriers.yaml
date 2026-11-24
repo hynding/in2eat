@@ -1,0 +1,8 @@
+title: Bike Basket Couriers
+summary: Pedal-powered restaurant delivery across the inner city, usually within 30 minutes.
+kinds: [food, coffee]
+tags: [eco, local]
+website: https://example.com/bike-basket
+coverage:
+  - { label: Inner Portland, center: { lat: 45.5231, lng: -122.6765 }, radiusKm: 6 }
+fees: { delivery: "$3.99 flat", minimumOrder: "$12" }

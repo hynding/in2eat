@@ -1,0 +1,23 @@
+title: Lemon Olive Oil Cake
+summary: A tender, not-too-sweet loaf cake that keeps for days.
+cuisine: italian
+course: dessert
+diet: [vegetarian, dairy-free]
+tags: [baking, citrus, make-ahead]
+servings: 8
+time: { prep: 15, cook: 45 }
+ingredients:
+  - items:
+      - { name: plain flour, quantity: 200, unit: g }
+      - { name: baking powder, quantity: 2, unit: tsp }
+      - { name: salt, quantity: 0.5, unit: tsp }
+      - { name: caster sugar, quantity: 180, unit: g }
+      - { name: lemons, quantity: 2, note: zest and juice }
+      - { name: eggs, quantity: 3 }
+      - { name: extra virgin olive oil, quantity: 160, unit: ml }
+steps:
+  - Heat the oven to 180°C and line a loaf tin.
+  - Rub the lemon zest into the sugar, then whisk in the eggs until pale.
+  - Stream in the olive oil and lemon juice while whisking.
+  - Fold in the flour, baking powder and salt. Pour into the tin.
+  - Bake 40 to 45 minutes until a skewer comes out clean. Cool before slicing.

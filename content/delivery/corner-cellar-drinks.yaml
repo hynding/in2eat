@@ -1,0 +1,9 @@
+title: Corner Cellar Drinks
+summary: Wine, beer, spirits and mixers delivered cold. ID required on delivery.
+kinds: [drink, alcohol]
+tags: [late-night]
+website: https://example.com/corner-cellar
+coverage:
+  - { label: Portland metro, center: { lat: 45.5152, lng: -122.6784 }, radiusKm: 20 }
+  - { label: Vancouver WA, center: { lat: 45.6387, lng: -122.6615 }, radiusKm: 10 }
+fees: { delivery: "$5.99", minimumOrder: "$25" }

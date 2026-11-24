@@ -1,0 +1,9 @@
+title: Green Crate Grocer
+summary: Same-day groceries and ready meals from independent shops.
+kinds: [grocery, food]
+tags: [organic, same-day]
+website: https://example.com/green-crate
+apps: { ios: https://example.com/green-crate/ios, android: https://example.com/green-crate/android }
+coverage:
+  - { label: Portland metro, center: { lat: 45.5152, lng: -122.6784 }, radiusKm: 25 }
+fees: { delivery: "Free over $50" }
