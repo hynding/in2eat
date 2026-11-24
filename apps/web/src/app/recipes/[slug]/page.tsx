@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SuggestEdit } from "@/domains/submissions/components/SuggestEdit";
 import { findEntry, slugParams } from "@/domains/content/repository";
 import { RecipeDetail } from "@/domains/recipes/components/RecipeDetail";
 
@@ -16,5 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RecipePage({ params }: Props) {
   const recipe = findEntry("recipes", (await params).slug);
   if (!recipe) notFound();
-  return <RecipeDetail recipe={recipe} />;
+  return (
+    <>
+      <RecipeDetail recipe={recipe} />
+      <SuggestEdit path={`content/recipes/${recipe.slug}.yaml`} title={recipe.title} />
+    </>
+  );
 }
