@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { themes } from "@in2eat/design-tokens";
 import { HeaderSearch } from "@/domains/search/components/HeaderSearch";
+import { SettingsProvider } from "@/domains/settings/components/SettingsProvider";
 import { withBasePath } from "@/shared/lib/base-path";
 import { ServiceWorkerRegistration } from "@/shared/pwa/ServiceWorkerRegistration";
 import { themeBootstrapScript } from "@/shared/pwa/theme-script";
@@ -31,14 +32,16 @@ export default function RootLayout({ children }: { readonly children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
-        <a href="#main" className="skip-link">Skip to content</a>
-        <SiteHeader search={<HeaderSearch />} />
-        <main id="main" className="page">{children}</main>
-        <footer className="site-footer">
-          <div>
-            In2Eat is open content. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.
-          </div>
-        </footer>
+        <SettingsProvider>
+          <a href="#main" className="skip-link">Skip to content</a>
+          <SiteHeader search={<HeaderSearch />} />
+          <main id="main" className="page">{children}</main>
+          <footer className="site-footer">
+            <div>
+              In2Eat is open content. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.
+            </div>
+          </footer>
+        </SettingsProvider>
         <ServiceWorkerRegistration />
       </body>
     </html>
